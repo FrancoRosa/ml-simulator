@@ -44,8 +44,11 @@ export const drawRect = (
     } = prediction;
 
     if (range == "near") {
-      if (text == "pile" && width < 10) return;
-      if (text == "crate" && width < 50) return;
+      for (const obj in ranges) {
+        if (text == obj && width < ranges[obj].near) return; // Output: key1, key2, key3
+      }
+      // if (text == "pile" && width < 10) return;
+      //   if (text == "crate" && width < 50) return;
     }
     ctx.strokeStyle = color;
     ctx.fillStyle = color;

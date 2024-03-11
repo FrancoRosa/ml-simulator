@@ -18,14 +18,14 @@ const App = () => {
       danger: 45,
     },
     pile: {
-      near: 25,
-      warning: 40,
-      danger: 45,
+      near: 10,
+      warning: 20,
+      danger: 25,
     },
     crane: {
-      near: 25,
-      warning: 40,
-      danger: 45,
+      near: 50,
+      warning: 70,
+      danger: 75,
     },
   });
   const videoRef = useRef();
@@ -64,6 +64,13 @@ const App = () => {
     cnvRef2.current.width = wd;
     setWidth(wd);
     setHeight(ht);
+  };
+
+  const handleInputChange = (key, value) => {
+    setRanges((prevState) => ({
+      ...prevState,
+      [key]: JSON.parse(value),
+    }));
   };
 
   useEffect(() => {
@@ -171,6 +178,18 @@ const App = () => {
           </select>
           <button onClick={handlePause}>{pause ? "Resume" : "Pause"}</button>
           <button onClick={handleRemove}>Change file</button>
+          <form>
+            {Object.entries(ranges).map(([key, value]) => (
+              <div key={key}>
+                <label>{key}:</label>
+                <input
+                  type="text"
+                  value={JSON.stringify(value)}
+                  onChange={(e) => handleInputChange(key, e.target.value)}
+                />
+              </div>
+            ))}
+          </form>
         </div>
       )}
     </>
