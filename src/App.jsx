@@ -112,7 +112,7 @@ const App = () => {
         } catch (error) {
           console.log(error);
         }
-      }, 1000);
+      }, 250);
     }
     return () => {
       clearInterval(interval);
