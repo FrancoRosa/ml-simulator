@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { cloneElement, useState } from "react";
 import "./App.css";
 
 const App = () => {
@@ -13,6 +13,10 @@ const App = () => {
     const file = e.target.files[0]; // Get the first selected file
     setSelectedFile(file);
     console.log(file);
+  };
+
+  const handleRemove = () => {
+    setSelectedFile();
   };
 
   return (
@@ -31,25 +35,43 @@ const App = () => {
           </video>
         </div>
       )}
-      <p id="message">---</p>
-      <select id="distance" onChange={handleRange}>
-        <option value="all" defaultValue>
-          All
-        </option>
-        <option value="near">Near</option>
-      </select>
-      <div style={{ display: "flex" }}>
-        {/* <select id="source"> */}
-        {/* <option value="webcam">Webcam</option> */}
-        {/* <option value="file">File</option> */}
-        {/* </select> */}
-        <input
-          id="file"
-          type="file"
-          accept="video/mp4,video/mkv, video/x-m4v,video/*"
-          onChange={handleFile}
-        />
-      </div>
+
+      <br />
+      <br />
+      {!selectedFile && (
+        <>
+          <h1>Object detector validator</h1>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <input
+              id="file"
+              type="file"
+              accept="video/mp4,video/mkv, video/x-m4v,video/*"
+              onChange={handleFile}
+            />
+          </div>
+        </>
+      )}
+      <br />
+
+      {selectedFile && (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "1em",
+          }}
+        >
+          <p id="message">---</p>
+          <select id="distance" onChange={handleRange}>
+            <option value="all" defaultValue>
+              All
+            </option>
+            <option value="near">Near</option>
+          </select>
+          <button onClick={handleRemove}>Change file</button>
+        </div>
+      )}
     </>
   );
 };
